@@ -3,6 +3,7 @@ import re
 
 REX_DICE = re.compile(r'\d*d\d+')
 REX_MULT = re.compile(r'(?:x\d+)+')
+REX_REPL = re.compile(r'x(\d)+')
 
 
 class Dice(object):
@@ -40,6 +41,7 @@ class Dice(object):
         return rule
 
     def _eval(self, expr):
+        expr = REX_REPL.sub(r'*\1', expr)
         return eval(expr)
 
     def _round(self, value):
@@ -47,5 +49,5 @@ class Dice(object):
 
     def roll(self):
         expr = self._get_expr()
-        result = self._eval(expr.replace('x', '*'))
+        result = self._eval(expr)
         return self._round(result)

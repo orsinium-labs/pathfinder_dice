@@ -44,6 +44,29 @@ class TestAlgos(unittest.TestCase):
         with self.subTest():
             self.assertEqual(roll('d1x2x3x4'), 7)
 
+    def test_math(self):
+        with self.subTest('x'):
+            self.assertEqual(roll('4x2'), 8)
+        with self.subTest('*'):
+            self.assertEqual(roll('4*2'), 8)
+        with self.subTest('/'):
+            self.assertEqual(roll('5/2'), 2)
+            self.assertEqual(roll('6/2'), 3)
+
+        with self.subTest('**'):
+            self.assertEqual(roll('4**2'), 16)
+
+        with self.subTest('+'):
+            self.assertEqual(roll('5+6'), 11)
+        with self.subTest('-'):
+            self.assertEqual(roll('9-2'), 7)
+
+    def test_func(self):
+        with self.subTest('min'):
+            self.assertEqual(roll('min(3,6)'), 3)
+        with self.subTest('max'):
+            self.assertEqual(roll('max(3,6)'), 6)
+
 
 if __name__ == '__main__':
 	unittest.main()
