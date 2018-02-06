@@ -36,6 +36,14 @@ class TestAlgos(unittest.TestCase):
             for i in range(1000):
                 self.assertIn(roll('20d2'), range(20, 40))
 
+    def test_multiply(self):
+        with self.subTest():
+            self.assertEqual(roll('d1x2'), 2)
+        with self.subTest():
+            self.assertEqual(roll('d1x2x2'), 3)
+        with self.subTest():
+            self.assertEqual(roll('d1x2x3x4'), 7)
+
 
 if __name__ == '__main__':
 	unittest.main()
