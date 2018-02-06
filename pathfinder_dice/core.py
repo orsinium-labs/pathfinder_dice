@@ -8,7 +8,7 @@ REX_MULT = re.compile(r'(?:x\d+)+')
 class Dice(object):
 
     def __init__(self, rule):
-        self.rule = _prepare_rule(rule)
+        self.rule = self._prepare_rule(rule)
 
     @staticmethod
     def _prepare_rule(rule):
