@@ -77,6 +77,13 @@ class TestAlgos(unittest.TestCase):
         with self.subTest():
             self.assertEqual(roll(' 2 +    3 *\t4'), 14)
 
+    def test_validation(self):
+        with self.subTest():
+            with self.assertRaises(ArithmeticError):
+                roll('print(2)')
+        with self.subTest():
+            self.assertEqual(roll('log(8, 2)'), 3)
+
 
 if __name__ == '__main__':
     unittest.main()

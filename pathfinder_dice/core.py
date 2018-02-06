@@ -1,9 +1,22 @@
+import math
+from math import *  # noQA
+# ^ for Dice._eval
 from random import randint
 import re
 
 REX_DICE = re.compile(r'\d*d\d+')
 REX_MULT = re.compile(r'(?:x\d+)+')
 REX_REPL = re.compile(r'x(\d)+')
+
+REX_MATH = re.compile(
+    '|'.join(
+        # oprators, digits
+        ['-', r'\+', '/', r'\\', r'\*', r'\^', r'\*\*', r'\(', r'\)', r'\d+']
+        + ['min', 'max']
+        # functions of math module (ex. __xxx__)
+        + [f for f in dir(math) if f[:2] != '__']
+    )
+)
 
 
 class Dice(object):
@@ -40,6 +53,9 @@ class Dice(object):
             rule = rule.replace(mult, self._reduce_mult(mult), 1)
         return rule
 
+    def _validate(self, expr):
+        return REX_MATH.match(expr)
+
     def _eval(self, expr):
         expr = REX_REPL.sub(r'*\1', expr)
         return eval(expr)
@@ -49,5 +65,8 @@ class Dice(object):
 
     def roll(self):
         expr = self._get_expr()
-        result = self._eval(expr)
+        if self._validate(expr):
+            result = self._eval(expr)
+        else:
+            raise ArithmeticError('Invalid expression: {}'.format(expr))
         return self._round(result)
