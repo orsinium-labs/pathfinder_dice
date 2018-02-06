@@ -67,6 +67,16 @@ class TestAlgos(unittest.TestCase):
         with self.subTest('max'):
             self.assertEqual(roll('max(3,6)'), 6)
 
+    def test_braces(self):
+        with self.subTest('without'):
+            self.assertEqual(roll('2+3*4'), 14)
+        with self.subTest('with'):
+            self.assertEqual(roll('(2+3)*4'), 20)
+
+    def test_junk(self):
+        with self.subTest():
+            self.assertEqual(roll(' 2 +    3 *\t4'), 14)
+
 
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()
