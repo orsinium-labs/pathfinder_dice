@@ -26,8 +26,13 @@ class Dice(object):
 
     @staticmethod
     def _prepare_rule(rule):
+        # remove spaces
         rule = ''.join(rule.split())
-        return rule.lower()
+        # to lowercase
+        rule = rule.lower()
+        # replace percent dice
+        rule = rule.replace('d%', 'd100')
+        return rule
 
     @staticmethod
     def _roll_dice(dice):
@@ -54,6 +59,8 @@ class Dice(object):
         return rule
 
     def _validate(self, expr):
+        if len(expr) > 140:
+            return False
         return REX_MATH.match(expr)
 
     def _eval(self, expr):

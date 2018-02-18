@@ -20,6 +20,9 @@ class TestAlgos(unittest.TestCase):
                 self.assertIn(roll('d12'), range(1, 13))
         with self.subTest('test: return different results'):
             self.assertNotEqual(roll('d1000'), roll('d1000'))
+        with self.subTest('test procent dice'):
+            for i in range(100):
+                self.assertIn(roll('d%'), range(1, 101))
 
     def test_two_dices(self):
         with self.subTest('test: two dices'):
